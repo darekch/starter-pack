@@ -4,7 +4,8 @@
   "plugins": ["react", "prettier"],
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 2018
@@ -12,5 +13,12 @@
   "rules": {
     "react/prefer-stateless-function": ["warn"],
     "react/jsx-filename-extension": ["error", { "extensions": [".js"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }

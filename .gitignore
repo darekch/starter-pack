@@ -1,4 +1,16 @@
+# dependencies
+/node_modules
+
+#testing
+/coverage
+
+#production
+/build
+/dist
+
+# testing
+/coverage
+
+# others
 .vscode
 .DS_Store
-dist
-node_modules
