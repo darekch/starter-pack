@@ -4,6 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -14,11 +15,11 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         loader: 'babel-loader',
-        options: { 
-          presets: ['@babel/env', '@babel/react'], 
-          plugins: ['react-hot-loader/babel'], 
+        options: {
+          presets: ['@babel/env', '@babel/react'],
+          plugins: ['react-hot-loader/babel'],
         },
       },
       {
@@ -27,7 +28,10 @@ module.exports = {
       },
     ],
   },
-  resolve: { extensions: ['*', '.js', '.jsx'] },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/dist/',
