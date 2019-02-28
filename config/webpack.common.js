@@ -1,18 +1,15 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const getClientEnvironment = require('./env');
 
-module.exports = {
+const dirname = fs.realpathSync(process.cwd());
+
+module.exports = env => ({
   entry: './src/index.js',
-  mode: 'development',
-  devtool: 'source-map',
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
@@ -30,18 +27,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    modules: [path.resolve(dirname, 'src'), 'node_modules'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/dist/',
+    path: path.resolve(dirname, 'dist/'),
     filename: 'bundle.js',
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'public/'),
-    port: 3000,
-    publicPath: 'http://localhost:3000/dist/',
-    hot: true,
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-};
+  plugins: [
+    new HtmlWebpackPlugin({ template: 'public/index.html' }),
+    new webpack.DefinePlugin(getClientEnvironment(env)),
+  ],
+});
