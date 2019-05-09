@@ -11,6 +11,6 @@
 # testing
 /coverage
 
-# others
-.vscode
-.DS_Store
+# IDEs
+/.vscode
+/.history
